@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('./models').User;
 const Course = require('./models').Course;
+const { authenticateUser } = require('./auth-user');
 
 const asyncHandler = (cb) => {
     return async (req, res, next) => {
@@ -16,7 +17,7 @@ const asyncHandler = (cb) => {
 };
 
 // Send GET request to READ the users
-router.get('/users', asyncHandler(async (req, res) => {
+router.get('/users', authenticateUser, asyncHandler(async (req, res) => {
     const users = await User.findAll();
     res.json(users);
 }));
