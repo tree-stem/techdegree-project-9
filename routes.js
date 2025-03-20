@@ -17,10 +17,15 @@ const asyncHandler = (cb) => {
     }
 };
 
-// Send GET request to READ the users
+// Send GET request to READ authorized user
 router.get('/users', authenticateUser, asyncHandler(async (req, res) => {
-    const users = await User.findAll();
-    res.json(users);
+    const user = req.currentUser;
+    res.json({
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        emailAddress: user.emailAddress,
+    })
 }));
 
 // Send POST request to CREATE new user
