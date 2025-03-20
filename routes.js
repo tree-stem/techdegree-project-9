@@ -45,7 +45,7 @@ router.get('/courses', authenticateUser, asyncHandler(async (req, res) => {
 }));
 
 // Send GET request to READ individual course
-router.get('/courses/:id', authenticateUser, asyncHandler(async (req, res) => {
+router.get('/courses/:id', asyncHandler(async (req, res) => {
     const course = await Course.findByPk(req.params.id);
     if (course) {
         res.json(course);
