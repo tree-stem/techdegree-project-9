@@ -52,7 +52,14 @@ router.get('/courses', asyncHandler(async (req, res) => {
 
 // Send GET request to READ individual course
 router.get('/courses/:id', asyncHandler(async (req, res) => {
-    const course = await Course.findByPk(req.params.id);
+    const course = await Course.findByPk(req.params.id,
+        {
+            include: [{
+                model:
+                    User,
+                attributes: ['id', 'firstName', 'lastName', 'emailAddress']
+            }]
+        });
     if (course) {
         res.json(course);
     } else {
