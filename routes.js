@@ -45,7 +45,7 @@ router.post('/users', authenticateUser, asyncHandler(async (req, res) => {
 }));
 
 // Send GET request to READ the courses
-router.get('/courses', authenticateUser, asyncHandler(async (req, res) => {
+router.get('/courses', asyncHandler(async (req, res) => {
     const courses = await Course.findAll();
     res.json(courses);
 }));
