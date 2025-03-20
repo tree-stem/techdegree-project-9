@@ -23,7 +23,7 @@ router.get('/users', authenticateUser, asyncHandler(async (req, res) => {
 }));
 
 // Send POST request to CREATE new user
-router.post('/users', asyncHandler(async (req, res) => {
+router.post('/users', authenticateUser, asyncHandler(async (req, res) => {
     try {
         await User.create(req.body);
         res.location('/'); // Set the location header
@@ -39,13 +39,13 @@ router.post('/users', asyncHandler(async (req, res) => {
 }));
 
 // Send GET request to READ the courses
-router.get('/courses', asyncHandler(async (req, res) => {
+router.get('/courses', authenticateUser, asyncHandler(async (req, res) => {
     const courses = await Course.findAll();
     res.json(courses);
 }));
 
 // Send GET request to READ individual course
-router.get('/courses/:id', asyncHandler(async (req, res) => {
+router.get('/courses/:id', authenticateUser, asyncHandler(async (req, res) => {
     const course = await Course.findByPk(req.params.id);
     if (course) {
         res.json(course);
@@ -55,7 +55,7 @@ router.get('/courses/:id', asyncHandler(async (req, res) => {
 }));
 
 // Send POST request to CREATE a course
-router.post('/courses', asyncHandler(async (req, res) => {
+router.post('/courses', authenticateUser, asyncHandler(async (req, res) => {
     try {
         const course = await Course.create(req.body);
         res.location('/courses/' + course.id); // Set the location header
@@ -71,7 +71,7 @@ router.post('/courses', asyncHandler(async (req, res) => {
 }));
 
 // Send PUT request to UPDATE a course
-router.put('/courses/:id', asyncHandler(async (req, res) => {
+router.put('/courses/:id', authenticateUser, asyncHandler(async (req, res) => {
     let course;
     try {
         course = await Course.findByPk(req.params.id);
@@ -94,7 +94,7 @@ router.put('/courses/:id', asyncHandler(async (req, res) => {
 }));
 
 // Send a DELETE request to DELETE a course
-router.delete('/courses/:id', asyncHandler(async (req, res) => {
+router.delete('/courses/:id', authenticateUser, asyncHandler(async (req, res) => {
     const course = await Course.findByPk(req.params.id);
     if (course) {
         await course.destroy();
