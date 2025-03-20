@@ -4,13 +4,12 @@ const auth = require('basic-auth');
 const bcrypt = require('bcrypt');
 const { User } = require('./models');
 
+// Export authenticateUser function 
 exports.authenticateUser = async (req, res, next) => {
     let message;
+
+    // Add req content to authentication header
     const credentials = auth(req);
-
-    // Debugging: Check if credentials is correctly populated
-    console.log('Credentials:', credentials);
-
 
     if (credentials) {
         const user = await User.findOne({ where: { emailAddress: credentials.name } });
@@ -30,6 +29,7 @@ exports.authenticateUser = async (req, res, next) => {
         message = `Auth header not found`;
     }
 
+    // Log message if authentication fails
     if (message) {
         console.warn(message);
         res.status(401).json({ message: 'Access Denied' });

@@ -33,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     materialsNeeded: DataTypes.STRING
   }, { sequelize });
 
+  // Create data relationship between Course and User
   Course.associate = (models) => {
     Course.belongsTo(models.User, {
       foreignKey: {

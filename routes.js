@@ -6,6 +6,7 @@ const User = require('./models').User;
 const Course = require('./models').Course;
 const { authenticateUser } = require('./auth-user');
 
+// Aysnc/await handler
 const asyncHandler = (cb) => {
     return async (req, res, next) => {
         try {

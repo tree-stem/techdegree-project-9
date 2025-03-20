@@ -67,6 +67,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, { sequelize });
 
+  // Create data relationship between User and Course
   User.associate = (models) => {
     User.hasMany(models.Course, {
       foreignKey: {
