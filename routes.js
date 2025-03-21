@@ -68,7 +68,7 @@ router.get('/courses/:id', asyncHandler(async (req, res) => {
 }));
 
 // Send POST request to CREATE a course
-router.post('/courses', asyncHandler(async (req, res) => {
+router.post('/courses', authenticateUser, asyncHandler(async (req, res) => {
     try {
         const course = await Course.create(req.body);
         res.location('/courses/' + course.id); // Set the location header
