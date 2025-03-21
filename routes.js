@@ -46,7 +46,13 @@ router.post('/users', asyncHandler(async (req, res) => {
 
 // Send GET request to READ the courses
 router.get('/courses', asyncHandler(async (req, res) => {
-    const courses = await Course.findAll();
+    const courses = await Course.findAll({
+        include: [{
+            model:
+                User,
+            attributes: ['id', 'firstName', 'lastName', 'emailAddress']
+        }]
+    });
     res.json(courses);
 }));
 
