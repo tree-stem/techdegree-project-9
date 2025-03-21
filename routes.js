@@ -29,7 +29,7 @@ router.get('/users', authenticateUser, asyncHandler(async (req, res) => {
 }));
 
 // Send POST request to CREATE new user
-router.post('/users', authenticateUser, asyncHandler(async (req, res) => {
+router.post('/users', asyncHandler(async (req, res) => {
     try {
         await User.create(req.body);
         res.location('/'); // Set the location header
